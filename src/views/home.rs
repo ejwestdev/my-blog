@@ -1,4 +1,5 @@
 use crate::components::Hero;
+use crate::components::Hi;
 use crate::components::Body;
 use dioxus::prelude::*;
 
@@ -6,7 +7,10 @@ use dioxus::prelude::*;
 #[component]
 pub fn Home() -> Element {
     rsx! {
-        Hero {}
-        Body {}
+        div { class: "flex flex-col grow",
+            Hero {}
+            Hi {}
+            Body {}
+        }
     }
 }
