@@ -8,6 +8,8 @@ pub use hero::Hero;
 mod body;
 pub use body::Body;
 
+mod blogs;
+pub use blogs::Blogs;
 
 mod hi;
 pub use hi::Hi;
