@@ -66,7 +66,7 @@ fn theme_set() -> &'static syntect::highlighting::ThemeSet {
 fn highlight_code(code: &str, lang: &str) -> String {
     let ss = syntax_set();
     let ts = theme_set();
-    let theme = &ts.themes["base16-ocean.dark"];
+    let theme = &ts.themes["InspiredGitHub"];
     let syntax = ss
         .find_syntax_by_token(&lang.to_lowercase())
         .unwrap_or_else(|| ss.find_syntax_plain_text());

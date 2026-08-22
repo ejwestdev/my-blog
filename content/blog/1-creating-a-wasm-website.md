@@ -1,5 +1,5 @@
 ---
-title = "Creating a Personal Site using WASM and Cloudflare Workers"
+title = "Creating a Personal Site using WASM and deploying to Cloudflare"
 date = "July 31, 2026"
 ---
 
