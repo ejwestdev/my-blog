@@ -1,7 +1,12 @@
 use include_dir::{include_dir, Dir};
-use pulldown_cmark::{html, Parser};
+use pulldown_cmark::{html, CodeBlockKind, Event, Parser, Tag, TagEnd};
 use serde::Deserialize;
 use std::sync::OnceLock;
+use syntect::html::{
+    append_highlighted_html_for_styled_line, start_highlighted_html_snippet, IncludeBackground,
+};
+use syntect::parsing::SyntaxSet;
+use syntect::util::LinesWithEndings;
 
 /// All blog posts and projects are embedded at compile time.
 /// Post ids are derived from the filename prefix before the first dash
@@ -48,9 +53,67 @@ fn split_frontmatter(source: &str) -> (&str, &str) {
     (parts[1].trim(), parts[2].trim())
 }
 
+fn syntax_set() -> &'static SyntaxSet {
+    static SYNTAX_SET: OnceLock<SyntaxSet> = OnceLock::new();
+    SYNTAX_SET.get_or_init(SyntaxSet::load_defaults_newlines)
+}
+
+fn theme_set() -> &'static syntect::highlighting::ThemeSet {
+    static THEME_SET: OnceLock<syntect::highlighting::ThemeSet> = OnceLock::new();
+    THEME_SET.get_or_init(syntect::highlighting::ThemeSet::load_defaults)
+}
+
+fn highlight_code(code: &str, lang: &str) -> String {
+    let ss = syntax_set();
+    let ts = theme_set();
+    let theme = &ts.themes["base16-ocean.dark"];
+    let syntax = ss
+        .find_syntax_by_token(&lang.to_lowercase())
+        .unwrap_or_else(|| ss.find_syntax_plain_text());
+
+    let mut h = syntect::easy::HighlightLines::new(syntax, theme);
+    let (mut out, _) = start_highlighted_html_snippet(theme);
+
+    for line in LinesWithEndings::from(code) {
+        let regions = h
+            .highlight_line(line, ss)
+            .unwrap_or_else(|e| panic!("Failed to highlight code block: {}", e));
+        append_highlighted_html_for_styled_line(&regions[..], IncludeBackground::No, &mut out)
+            .unwrap_or_else(|e| panic!("Failed to write highlighted code: {}", e));
+    }
+    out.push_str("</pre>\n");
+    out
+}
+
 fn render_markdown(md: &str) -> String {
     let mut html_output = String::new();
-    html::push_html(&mut html_output, Parser::new(md));
+    let mut events = Parser::new(md);
+    while let Some(event) = events.next() {
+        match event {
+            Event::Start(Tag::CodeBlock(kind)) => {
+                let lang = match kind {
+                    CodeBlockKind::Fenced(info) => info
+                        .split(',')
+                        .next()
+                        .unwrap_or_default()
+                        .trim()
+                        .to_string(),
+                    CodeBlockKind::Indented => String::new(),
+                };
+
+                let mut code = String::new();
+                for e in events.by_ref() {
+                    match e {
+                        Event::End(TagEnd::CodeBlock) => break,
+                        Event::Text(t) | Event::Html(t) => code.push_str(&t),
+                        _ => {}
+                    }
+                }
+                html_output.push_str(&highlight_code(&code, &lang));
+            }
+            other => html::push_html(&mut html_output, std::iter::once(other)),
+        }
+    }
     html_output
 }
 
