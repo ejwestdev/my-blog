@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use views::{Blog, Home, Navbar};
+use views::{Blog, BlogList, Home, Navbar, Project};
 
 mod components;
 mod views;
@@ -7,10 +7,15 @@ mod views;
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
 enum Route {
-    #[route("/")]
-    Home {},
-    #[route("/blog/:id")]
-    Blog { id: i32 },
+    #[layout(Navbar)]
+        #[route("/")]
+        Home {},
+        #[route("/blog")]
+        BlogList {},
+        #[route("/blog/:id")]
+        Blog { id: i32 },
+        #[route("/projects/:slug")]
+        Project { slug: String },
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");

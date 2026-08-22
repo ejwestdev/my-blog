@@ -1,7 +1,6 @@
-use dioxus::prelude::*;
-
 use crate::views::content;
 use crate::Route;
+use dioxus::prelude::*;
 
 pub struct BlogMeta {
     pub id: i32,
@@ -23,13 +22,35 @@ pub fn all_blog_meta() -> Vec<BlogMeta> {
 const BLOG_CSS: Asset = asset!("/assets/styling/blog.css");
 
 #[component]
+pub fn BlogList() -> Element {
+    let posts = all_blog_meta();
+
+    rsx! {
+        document::Link { rel: "stylesheet", href: BLOG_CSS }
+        div { id: "blog-list",
+            h1 { class: "page-header", "Blog" }
+            ul {
+                {posts.iter().map(|post| {
+                    rsx! {
+                        li { key: "{post.id}",
+                            Link { to: Route::Blog { id: post.id }, "{post.title}" }
+                            span { class: "post-date", " — {post.date}" }
+                        }
+                    }
+                })}
+            }
+        }
+    }
+}
+
+#[component]
 pub fn Blog(id: i32) -> Element {
     let post = content::get_post(id);
 
     rsx! {
         document::Link { rel: "stylesheet", href: BLOG_CSS }
         div { id: "blog",
-            Link { to: Route::Home {}, class: "text-blue-400 hover:text-blue-300", "← Back to Home" }
+            Link { to: Route::BlogList {}, class: "back-link", "← Back to Blog" }
             if let Some(post) = post {
                 h1 { class: "text-3xl font-bold text-white mb-4", "{post.title}" }
                 p { class: "text-gray-500 mb-6", "{post.date}" }

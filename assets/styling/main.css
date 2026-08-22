@@ -1,41 +1,116 @@
+:root {
+  --link-active: #0070f3;
+  --link-hover: #6089d6;
+  --dimmed: #757575;
+  --primary: #111111;
+  --bg: #ffffff;
+  --code-background: #eeeeee;
+}
+
 body {
-    background-color: #0f1116;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Roboto Slab", Georgia, serif;
+  color: var(--primary);
+  background-color: var(--bg);
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 70rem;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-#hero {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+li {
+  margin-bottom: 0.75rem;
 }
 
-#links {
-    width: 400px;
-    text-align: left;
-    font-size: x-large;
-    color: white;
-    display: flex;
-    flex-direction: column;
+a {
+  color: var(--link-active);
+  text-decoration: none;
 }
 
-#links a {
-    color: white;
-    text-decoration: none;
-    margin-top: 20px;
-    margin: 10px 0px;
-    border: white 1px solid;
-    border-radius: 5px;
-    padding: 10px;
+a:hover {
+  color: var(--link-hover);
+  border-bottom: 2px dotted var(--link-hover);
 }
 
-#links a:hover {
-    background-color: #1f1f1f;
-    cursor: pointer;
+.page-header {
+  font-size: 3rem;
 }
 
-#header {
-    max-width: 1200px;
+/* Home layout */
+.home-intro {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  flex-grow: 1;
+}
+
+.home-text {
+  flex: 1;
+}
+
+.home-photo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Projects grid */
+.projects-holder {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%/1, max(300px, 100%/3)), 1fr)
+  );
+}
+
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.project-card {
+  background-color: #df8f4d;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.project-card h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.project-card p {
+  margin: 0;
+  color: #666666;
+  line-height: 1.6;
+  flex-grow: 1;
 }
