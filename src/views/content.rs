@@ -1,6 +1,14 @@
+use include_dir::{include_dir, Dir};
 use pulldown_cmark::{html, Parser};
 use serde::Deserialize;
 use std::sync::OnceLock;
+
+/// All blog posts and projects are embedded at compile time.
+/// Post ids are derived from the filename prefix before the first dash
+/// (e.g. `1-my-first-post.md` -> 1); project slugs come from the file stem
+/// (e.g. `greppy.md` -> "greppy").
+static BLOG_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/blog");
+static PROJECTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/projects");
 
 #[derive(Debug, Clone, Deserialize)]
 struct PostFrontmatter {
@@ -77,31 +85,30 @@ fn parse_project(slug: &'static str, source: &str) -> Project {
 fn all_posts_impl() -> &'static Vec<BlogPost> {
     static POSTS: OnceLock<Vec<BlogPost>> = OnceLock::new();
     POSTS.get_or_init(|| {
-        vec![
-            parse_post(1, include_str!("../../content/blog/1-my-first-post.md")),
-            parse_post(2, include_str!("../../content/blog/2-second-post.md")),
-        ]
+        let mut posts: Vec<BlogPost> = BLOG_DIR
+            .files()
+            .filter_map(|file| {
+                let name = file.path().file_name()?.to_str()?;
+                let (id_str, _) = name.split_once('-')?;
+                let id: i32 = id_str.parse().ok()?;
+                Some(parse_post(id, file.contents_utf8()?))
+            })
+            .collect();
+        posts.sort_by_key(|p| p.id);
+        posts
     })
 }
 
 fn all_projects_impl() -> &'static Vec<Project> {
     static PROJECTS: OnceLock<Vec<Project>> = OnceLock::new();
     PROJECTS.get_or_init(|| {
-        let mut projects = vec![
-            parse_project(
-                "bink-bankroll-tracker",
-                include_str!("../../content/projects/bink-bankroll-tracker.md"),
-            ),
-            parse_project("greppy", include_str!("../../content/projects/greppy.md")),
-            parse_project(
-                "preflop-android",
-                include_str!("../../content/projects/preflop-android.md"),
-            ),
-            parse_project(
-                "rusty-monkey",
-                include_str!("../../content/projects/rusty-monkey.md"),
-            ),
-        ];
+        let mut projects: Vec<Project> = PROJECTS_DIR
+            .files()
+            .filter_map(|file| {
+                let slug = file.path().file_stem()?.to_str()?;
+                Some(parse_project(slug, file.contents_utf8()?))
+            })
+            .collect();
         projects.sort_by_key(|p| p.order);
         projects
     })
@@ -120,8 +127,5 @@ pub fn all_projects() -> Vec<Project> {
 }
 
 pub fn get_project(slug: &str) -> Option<Project> {
-    all_projects_impl()
-        .iter()
-        .find(|p| p.slug == slug)
-        .cloned()
+    all_projects_impl().iter().find(|p| p.slug == slug).cloned()
 }

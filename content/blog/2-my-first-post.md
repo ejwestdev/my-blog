@@ -1,6 +1,6 @@
 ---
 title = "My First Post"
-date = "June 15, 2026"
+date = "June 17, 2026"
 ---
 
 This is the content of my first blog post. I'm excited to start writing!

@@ -52,14 +52,14 @@ pub fn Blog(id: i32) -> Element {
         div { id: "blog",
             Link { to: Route::BlogList {}, class: "back-link", "← Back to Blog" }
             if let Some(post) = post {
-                h1 { class: "text-3xl font-bold text-white mb-4", "{post.title}" }
-                p { class: "text-gray-500 mb-6", "{post.date}" }
+                h1 { class: "page-header", "{post.title}" }
+                p { class: "post-date mb-6", "{post.date}" }
                 div {
-                    class: "prose prose-invert max-w-none text-gray-300 leading-relaxed",
+                    class: "prose max-w-none leading-relaxed",
                     dangerous_inner_html: "{post.html}",
                 }
             } else {
-                p { class: "text-gray-400", "Blog post not found." }
+                p { "Blog post not found." }
             }
         }
     }
