@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --link-active: #0070f3;
   --link-hover: #6089d6;
@@ -8,7 +24,7 @@
 }
 
 body {
-  font-family: "Roboto Slab", Georgia, serif;
+  font-family: "Atkinson Hyperlegible", "Roboto Slab", Georgia, serif;
   color: var(--primary);
   background-color: var(--bg);
   margin: 0 auto;
