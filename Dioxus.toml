@@ -1,4 +1,8 @@
 [application]
+# Skip the wasm-opt pass; it crashes on this toolchain (binaryen DWARF bug) and
+# only affects final WASM size.
+[web.wasm-opt]
+level = 0
 
 [web.app]
 

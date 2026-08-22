@@ -8,12 +8,12 @@ All commands are run from the root of the project, from a terminal:
 | :------------------------- | :-------------------------------------- |
 | `cargo install dioxus-cli` | Installs the Dioxus CLI (once)          |
 | `dx serve`                 | Starts local dev server with hot reload |
-| `dx build --release`       | Build your production site to `./dist/` |
+| `dx build --release`       | Build your production site to `./target/dx/edward-blog/release/web/public` |
 | `dx serve --release`       | Preview the release build locally       |
 
 ## Deploy
 
 ```sh
 dx build --release
-npx wrangler pages deploy ./dist
+npx wrangler pages deploy ./target/dx/edward-blog/release/web/public
 ```
