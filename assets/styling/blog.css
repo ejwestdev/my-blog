@@ -4,8 +4,7 @@
   margin-top: 24px;
 }
 
-#blog > a.back-link,
-#project > a.back-link {
+:is(#blog, #project) > a.back-link {
   display: inline-block;
   margin-bottom: 1.5rem;
   border-bottom: 2px dotted transparent;
@@ -21,54 +20,58 @@
 }
 
 #blog-list .post-date,
-#blog .post-date {
+:is(#blog, #project) .post-date {
   color: var(--dimmed);
 }
 
-#blog h1,
-#blog h2,
-#blog h3,
-#blog h4 {
+#blog h1 {
+  color: var(--primary);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  font-size: 1.875rem;
+}
+
+:is(#blog, #project) h2,
+:is(#blog, #project) h3,
+:is(#blog, #project) h4 {
   color: var(--primary);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   font-weight: 700;
 }
 
-#blog h1 {
-  font-size: 1.875rem;
-}
-#blog h2 {
+:is(#blog, #project) h2 {
   font-size: 1.5rem;
 }
-#blog h3 {
+:is(#blog, #project) h3 {
   font-size: 1.25rem;
 }
 
-#blog p {
+:is(#blog, #project) p {
   margin-bottom: 1rem;
   line-height: 1.75;
 }
 
-#blog ul,
-#blog ol {
+:is(#blog, #project) ul,
+:is(#blog, #project) ol {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
   color: var(--primary);
 }
 
-#blog ul {
+:is(#blog, #project) ul {
   list-style-type: disc;
 }
-#blog ol {
+:is(#blog, #project) ol {
   list-style-type: decimal;
 }
 
-#blog li {
+:is(#blog, #project) li {
   margin-bottom: 0.25rem;
 }
 
-#blog blockquote {
+:is(#blog, #project) blockquote {
   border-left: 4px solid var(--link-hover);
   padding-left: 1rem;
   margin: 1rem 0;
@@ -76,7 +79,7 @@
   font-style: italic;
 }
 
-#blog code {
+:is(#blog, #project) code {
   background: var(--code-background);
   padding: 0.125rem 0.375rem;
   border-radius: 4px;
@@ -84,7 +87,7 @@
   color: var(--primary);
 }
 
-#blog pre {
+:is(#blog, #project) pre {
   background: var(--code-background);
   padding: 1rem;
   border-radius: 8px;
@@ -92,24 +95,24 @@
   margin-bottom: 1rem;
 }
 
-#blog pre code {
+:is(#blog, #project) pre code {
   background: none;
   padding: 0;
   border-radius: 0;
 }
 
-#blog img {
+:is(#blog, #project) img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
   margin: 1.5rem 0;
 }
 
-#blog strong {
+:is(#blog, #project) strong {
   color: var(--primary);
   font-weight: 700;
 }
 
-#blog em {
+:is(#blog, #project) em {
   font-style: italic;
 }

@@ -63,10 +63,15 @@ fn theme_set() -> &'static syntect::highlighting::ThemeSet {
     THEME_SET.get_or_init(syntect::highlighting::ThemeSet::load_defaults)
 }
 
+/// Dark highlighting theme; its background matches `--code-background` in main.css.
+fn code_theme() -> &'static str {
+    "base16-ocean.dark"
+}
+
 fn highlight_code(code: &str, lang: &str) -> String {
     let ss = syntax_set();
     let ts = theme_set();
-    let theme = &ts.themes["InspiredGitHub"];
+    let theme = &ts.themes[code_theme()];
     let syntax = ss
         .find_syntax_by_token(&lang.to_lowercase())
         .unwrap_or_else(|| ss.find_syntax_plain_text());
