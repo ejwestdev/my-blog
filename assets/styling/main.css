@@ -58,23 +58,8 @@ a:hover {
 
 /* Home layout */
 .home-intro {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
   margin-top: 1.5rem;
   flex-grow: 1;
-}
-
-.home-text {
-  flex: 1;
-}
-
-.home-photo img {
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Projects grid */
