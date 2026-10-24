@@ -8,10 +8,6 @@ use syntect::html::{
 use syntect::parsing::SyntaxSet;
 use syntect::util::LinesWithEndings;
 
-/// All blog posts and projects are embedded at compile time.
-/// Post ids are derived from the filename prefix before the first dash
-/// (e.g. `1-my-first-post.md` -> 1); project slugs come from the file stem
-/// (e.g. `greppy.md` -> "greppy").
 static BLOG_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/blog");
 static PROJECTS_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/content/projects");
 
@@ -63,7 +59,6 @@ fn theme_set() -> &'static syntect::highlighting::ThemeSet {
     THEME_SET.get_or_init(syntect::highlighting::ThemeSet::load_defaults)
 }
 
-/// Dark highlighting theme; its background matches `--code-background` in main.css.
 fn code_theme() -> &'static str {
     "base16-ocean.dark"
 }
