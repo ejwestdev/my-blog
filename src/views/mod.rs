@@ -5,7 +5,9 @@ pub use home::Home;
 
 pub mod blog;
 pub use blog::Blog;
-pub use blog::BlogList;
+
+mod projects;
+pub use projects::Projects;
 
 mod project;
 pub use project::Project;

@@ -1,11 +1,13 @@
+use crate::Route;
 use dioxus::prelude::*;
 
-use crate::components::{Footer, ProjectCard};
+use crate::components::Footer;
 use crate::views::content;
 
 #[component]
 pub fn Home() -> Element {
-    let projects = content::all_projects();
+    let mut posts = content::all_posts();
+    posts.sort_by(|a, b| b.id.cmp(&a.id));
 
     rsx! {
         div { class: "home-intro",
@@ -17,11 +19,15 @@ pub fn Home() -> Element {
                 "backend APIs for production use. AWS Lambda, Postgres, EC2, and FastAPI is my "
                 "go to tech stack for backend services."
             }
-            h2 { "Projects" }
-            div { class: "projects-holder",
-                {projects.iter().map(|project| {
+
+            h2 { class: "section-header", "Recent" }
+            ul { class: "recent-list",
+                {posts.iter().map(|post| {
                     rsx! {
-                        ProjectCard { key: "{project.slug}", project: project.clone() }
+                        li { key: "{post.id}",
+                            Link { to: Route::Blog { id: post.id }, "{post.title}" }
+                            span { class: "post-date", " — {post.date}" }
+                        }
                     }
                 })}
             }

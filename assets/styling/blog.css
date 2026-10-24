@@ -1,5 +1,4 @@
 #blog,
-#blog-list,
 #project {
   margin-top: 24px;
 }
@@ -10,16 +9,6 @@
   border-bottom: 2px dotted transparent;
 }
 
-#blog-list ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-#blog-list li {
-  margin-bottom: 1rem;
-}
-
-#blog-list .post-date,
 :is(#blog, #project) .post-date {
   color: var(--dimmed);
 }

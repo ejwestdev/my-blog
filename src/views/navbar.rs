@@ -17,7 +17,7 @@ pub fn Navbar() -> Element {
                 nav { id: "navbar",
                     div { class: "internal-links",
                         Link { to: Route::Home {}, "Home" }
-                        Link { to: Route::BlogList {}, "Blog" }
+                        Link { to: Route::Projects {}, "Projects" }
                     }
                     div { class: "social-links",
                         a {

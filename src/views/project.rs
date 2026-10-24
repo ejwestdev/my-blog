@@ -11,7 +11,7 @@ pub fn Project(slug: String) -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: PROJECT_CSS }
         div { id: "project",
-            Link { to: Route::Home {}, class: "back-link", "← Back to Projects" }
+            Link { to: Route::Projects {}, class: "back-link", "← Back to Projects" }
             if let Some(project) = project {
                 h1 { class: "page-header", "{project.title}" }
                 div { dangerous_inner_html: "{project.html}" }
