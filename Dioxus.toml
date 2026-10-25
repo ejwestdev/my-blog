@@ -2,6 +2,10 @@
 [web.wasm-opt]
 level = 0
 
+[web.watcher]
+
+watch_path = ["src", "content"]
+
 [web.app]
 
 title = "Edward West"

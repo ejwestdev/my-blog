@@ -13,7 +13,7 @@ pub fn ProjectCard(project: Project) -> Element {
 
     if let Some(link) = &project.link {
         rsx! {
-            a { class: "project-link", href: "{link}", target: "_blank", {card} }
+            a { class: "project-link", href: link, target: "_blank", {card} }
         }
     } else {
         rsx! {
