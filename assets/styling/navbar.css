@@ -17,7 +17,7 @@ header nav#navbar .internal-links {
 
 header nav#navbar .internal-links a:hover {
   color: var(--link-hover);
-  border-bottom: 2px dotted var(--link-hover);
+  text-decoration: none;
 }
 
 header nav#navbar .social-links,

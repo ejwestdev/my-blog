@@ -56,7 +56,8 @@ a {
 
 a:hover {
   color: var(--link-hover);
-  border-bottom: 2px dotted var(--link-hover);
+  text-decoration: underline dotted var(--link-hover);
+  text-decoration-thickness: 2px;
 }
 
 .page-header {
@@ -119,6 +120,10 @@ a:hover {
   font-size: 0.875rem;
 }
 
+.recent-list a:hover {
+  text-underline-offset: 2px;
+}
+
 .projects-holder {
   display: grid;
   gap: 20px;
@@ -133,6 +138,10 @@ a:hover {
   color: inherit;
   display: block;
   height: 100%;
+}
+
+.project-link:hover {
+  text-decoration: none;
 }
 
 .project-card {
