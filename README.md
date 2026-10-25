@@ -15,5 +15,7 @@ All commands are run from the root of the project, from a terminal:
 
 ```sh
 dx build --release
-npx wrangler pages deploy ./target/dx/edward-blog/release/web/public
+npx wrangler pages deploy ./target/dx/edward-blog/release/web/public --project-name ejwest-personal --branch main
 ```
+
+Note: `--branch main` is required — deploys to any other branch only create a preview URL (`<branch>.ejwest-personal.pages.dev`) and won't update the production site.
