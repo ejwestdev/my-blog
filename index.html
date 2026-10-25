@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <title>{app_title}</title>
+    <style>
+      /* Critical shell styles.
+         These apply before the WASM app boots so the very first paint is
+         already dark instead of flashing white. Keep the colors in sync
+         with the CSS variables in assets/styling/main.css. */
+      html {
+        background-color: #121212;
+        color-scheme: dark;
+      }
+
+      body {
+        margin: 0;
+        color: #e6e6e6;
+        font-family: Georgia, serif;
+      }
+
+      /* Keep the page blank until the app's stylesheets have loaded.
+         The app adds the `css-ready` class to <html> once every injected
+         stylesheet has finished loading. */
+      #main {
+        visibility: hidden;
+      }
+
+      html.css-ready #main {
+        visibility: visible;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>

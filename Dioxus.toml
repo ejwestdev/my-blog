@@ -1,6 +1,6 @@
 [application]
 [web.wasm-opt]
-level = 0
+level = "4"
 
 [web.watcher]
 
